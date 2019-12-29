@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "gui-pc",
+    "password": null,
+    "database": "calorie_tracker_dev",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": 0
+  },
+  "test": {
+    "username": "gui-pc",
+    "password": null,
+    "database": "calorie_tracker_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": 0
+  },
+  "production": {
+    "username": "gui-pc",
+    "password": null,
+    "database": "calorie_tracker_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": 0
+  }
+}
