@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true
       },
-      calorie: {
+      calories: {
         type: Sequelize.STRING
       },
       createdAt: {
