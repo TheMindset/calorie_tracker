@@ -1,7 +1,6 @@
 const Food = require('../models').Food
 
 const index = (request, response) => {
-  console.log(request)
   return Food.findAll({
     attributes: { exclude: ['createdAt', 'updatedAt']}
   })
@@ -16,8 +15,6 @@ const index = (request, response) => {
 }
 
 const show = (request, response) => {
-  console.log(request.params)
-
   return Food.findOne({
     attributes: { 
       exclude: ['createdAt', 'updatedAt']
@@ -43,6 +40,42 @@ const show = (request, response) => {
   })
 }
 
+const update = (request, response) => {
+  return Food.findOne({
+    attributes: { 
+      exclude: ['createdAt', 'updatedAt']
+    },
+    where: {
+      id: request.params.id
+    }
+  })
+  .then(food => {
+    if (food) {
+      return food.update({
+        name: request.body.name,
+        calories: request.body.calories
+      })
+      .then(updatedFood => {
+        response.setHeader('Content-type', 'application/json')
+        response.status(200).send(JSON.stringify({
+          id: updatedFood.id,
+          name: updatedFood.name,
+          calories: updatedFood.calories
+        }))
+      })
+      .catch(error => {
+        response.setHeader('Content-type', 'application/json')
+        response.status(500).send({ error })
+      })
+    } else {
+      response.setHeader('Content-type', 'application/json')
+      response.status(404).send(JSON.stringify({
+        error: "Food not found."
+      }))
+    }
+  })
+}
+
 module.exports = {
-  index, show
+  index, show, update
 }
