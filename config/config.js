@@ -1,6 +1,6 @@
-{
+module.exports = {
   "development": {
-    "username": "gui-pc",
+    "username": process.env.DB_USERNAME,
     "password": null,
     "database": "calorie_tracker_development",
     "host": "127.0.0.1",
@@ -8,7 +8,7 @@
     "operatorsAliases": 0
   },
   "test": {
-    "username": "gui-pc",
+    "username": process.env.DB_USERNAME,
     "password": null,
     "database": "calorie_tracker_test",
     "host": "127.0.0.1",
@@ -16,7 +16,7 @@
     "operatorsAliases": 0
   },
   "production": {
-    "username": "gui-pc",
+    "username": process.env.DB_USERNAME,
     "password": null,
     "database": "calorie_tracker_production",
     "host": "127.0.0.1",
