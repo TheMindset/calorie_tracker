@@ -4,7 +4,7 @@ const toTitleFoodName = require('../tests/helpers/toTitleFoodName')
 module.exports = (sequelize, DataTypes) => {
   const Food = sequelize.define('Food', {
     name: DataTypes.STRING,
-    calorie: DataTypes.STRING
+    calories: DataTypes.STRING
   }, {
     hooks: {
       beforeCreate: (food) => {
