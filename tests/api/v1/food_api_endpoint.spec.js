@@ -1,6 +1,6 @@
-const request = require('superset')
-
 const app = require('../../../app')
+const request = require('supertest')
+
 const Food = require('../../../models').Food
 const cleanup = require('../../helpers/testCleanupDatabase')
 
@@ -41,8 +41,8 @@ describe('Food api endpoint', () => {
         expect(Object.keys(response.body[0])).toContain('name')
         expect(Object.keys(response.body[0])).toContain('calories')
 
-        expect(Object.keys(response.body[0])).toContain('createdAt')
-        expect(Object.keys(response.body[0])).toContain('updatedAt')
+        expect(Object.keys(response.body[0])).not.toContain('createdAt')
+        expect(Object.keys(response.body[0])).not.toContain('updatedAt')
       })
   
     })
