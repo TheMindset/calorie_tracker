@@ -2,7 +2,7 @@
   "development": {
     "username": "gui-pc",
     "password": null,
-    "database": "calorie_tracker_dev",
+    "database": "calorie_tracker_development",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "operatorsAliases": 0
