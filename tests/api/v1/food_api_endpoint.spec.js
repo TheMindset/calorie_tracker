@@ -153,4 +153,42 @@ describe('Food api endpoint', () => {
     })
   })
 
+  test('user can delete a food', () => {
+    return Food.create(
+      {
+        id: 1,
+        name: "Kiwi",
+        calories: 700,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    )
+    .then(food => {
+      return request(app)
+      .delete(`/api/v1/foods/${food.id}`)
+      .then(response => {
+        expect(response.status).toBe(204)
+      })
+    })
+  })
+
+  test('returns 404 error when user want udelete food with invalid id', () => {
+    return Food.bulkCreate({
+      id: 1,
+      name: "Kiwi",
+      calories: 700,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })
+    .then(food => {
+      return request(app)
+      .delete('/api/v1/foods/40')
+      .then(response => {
+        expect(response.statusCode).toBe(404)
+        expect((response.body.error)).toBe('Food not found.')
+      })
+    })
+  })
+
+
 })
