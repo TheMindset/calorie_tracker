@@ -44,7 +44,64 @@ describe('Food api endpoint', () => {
         expect(Object.keys(response.body[0])).not.toContain('createdAt')
         expect(Object.keys(response.body[0])).not.toContain('updatedAt')
       })
+    })
+  })
+
+  test('returns a single food', () => {
+    return Food.bulkCreate([
+    {
+      id: 1,
+      name: "Apple",
+      calories: 100,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      id: 2,
+      name: "Kiwi",
+      calories: 700,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
+    ])
+    .then(food => {
+      return request(app)
+      .get('/api/v1/foods/2')
+      .then(response => {
+        expect(Object.values(response.body)).toContain(2)
+        expect(Object.values(response.body)).toContain('Kiwi')
+        expect(Object.values(response.body)).toContain('700')
+
+        expect(Object.keys(response.body)).not.toContain('createdAt')
+        expect(Object.keys(response.body)).not.toContain('updatedAt')
+      })
+    })
+  })
   
+  test('returns 404 error when user fetch single food with invalid id', () => {
+    return Food.bulkCreate([
+      {
+        id: 1,
+        name: "Apple",
+        calories: 100,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: 2,
+        name: "Kiwi",
+        calories: 700,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    ])
+    .then(food => {
+      return request(app)
+      .get('/api/v1/foods/3')
+      .then(response => {
+        expect(response.statusCode).toBe(404)
+        expect((response.body.error)).toBe('Food not found.')
+      })
     })
   })
 })
