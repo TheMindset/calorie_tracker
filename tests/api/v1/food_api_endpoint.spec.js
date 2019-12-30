@@ -2,9 +2,14 @@ const request = require('superset')
 
 const app = require('../../../app')
 const Food = require('../../../models').Food
-const cleanup = require('../../helpers')
+const cleanup = require('../../helpers/testCleanupDatabase')
 
 describe('Food api endpoint', () => {
+
+  beforeEach(() => {
+    cleanup()
+  })
+
   test('should returns all foods', () => {
     return Food.bulkCreate([
       {
