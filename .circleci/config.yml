@@ -10,7 +10,7 @@ jobs:
       - image: circleci/node:12.5.0
         enviroment: 
           PGHOST: localhost
-          PGUSER: calorie_tracker
+          PGUSER: gui-pc
           NODE_ENV: test
 
       - image: postgres:11.3
