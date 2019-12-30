@@ -104,4 +104,53 @@ describe('Food api endpoint', () => {
       })
     })
   })
+
+  test('returns a single food updated', () => {
+    return Food.create({
+      id: 1,
+      name: "Apple",
+      calories: 100,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })
+    .then(food => {
+      return request(app)
+      .patch(`/api/v1/foods/${food.id}`)
+      .send({
+        name: 'Kiwi',
+        calories: 80
+      })
+      .then(response => {
+        expect(Object.keys(response.body)).toContain('id')
+        expect(Object.keys(response.body)).toContain('name')
+        expect(Object.keys(response.body)).toContain('calories')
+
+        expect(Object.keys(response.body)).not.toContain('createdAt')
+        expect(Object.keys(response.body)).not.toContain('updatedAt')
+      })
+    })
+  })
+
+  test('returns 404 error when user want update food with invalid id', () => {
+    return Food.bulkCreate({
+      id: 2,
+      name: "Kiwi",
+      calories: 700,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })
+    .then(food => {
+      return request(app)
+      .patch('/api/v1/foods/40')
+      .send({
+        name: 'Kiwi',
+        calories: 80
+      })
+      .then(response => {
+        expect(response.statusCode).toBe(404)
+        expect((response.body.error)).toBe('Food not found.')
+      })
+    })
+  })
+
 })
