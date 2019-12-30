@@ -76,6 +76,33 @@ const update = (request, response) => {
   })
 }
 
+const deleteFood = (request, response) => {
+  return Food.findOne({
+    where: {
+      id: request.params.id
+    }
+  })
+  .then(food => {
+    if (food) {
+      return food.destroy()
+      .then(destroyedFood => {
+        response.setHeader('Content-type', 'application/json')
+        response.status(204).send(JSON.stringify(destroyedFood))
+      })
+    } else {
+      response.setHeader('Content-type', 'application/json')
+      response.status(404).send(JSON.stringify({
+        error: "Food not found."
+      }))
+    }
+  })
+  .catch(error => {
+    response.setHeader('Content-type', 'application/json')
+    response.status(500).send({ error })
+  })
+}
+
+
 module.exports = {
-  index, show, update
+  index, show, update, deleteFood
 }
