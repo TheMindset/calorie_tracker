@@ -143,7 +143,7 @@ describe('Food api endpoint', () => {
       return request(app)
       .patch('/api/v1/foods/40')
       .send({
-        name: 'Kiwi',
+        name: 'Mango',
         calories: 80
       })
       .then(response => {
@@ -157,8 +157,8 @@ describe('Food api endpoint', () => {
     return Food.create(
       {
         id: 1,
-        name: "Kiwi",
-        calories: 700,
+        name: "Mango",
+        calories: 150,
         createdAt: new Date(),
         updatedAt: new Date()
       }
@@ -172,7 +172,7 @@ describe('Food api endpoint', () => {
     })
   })
 
-  test('returns 404 error when user want udelete food with invalid id', () => {
+  test('returns 404 error when user want delete food with invalid id', () => {
     return Food.bulkCreate({
       id: 1,
       name: "Kiwi",
@@ -190,5 +190,35 @@ describe('Food api endpoint', () => {
     })
   })
 
+  test('user can create a new food', () => {
+    return request(app)
+    .post('/api/v1/foods/')
+    .send({
+      name: 'Kebab',
+      calories: 6000
+    })
+    .then(response => {
+      expect(response.status).toBe(200)
 
+      expect(Object.keys(response.body)).toContain('id')
+      expect(Object.keys(response.body)).toContain('name')
+      expect(Object.keys(response.body)).toContain('calories')
+
+      expect(Object.keys(response.body)).not.toContain('createdAt')
+      expect(Object.keys(response.body)).not.toContain('updatedAt')
+
+    })
+  })
+
+  test('returns 400 error when user want create food without required fields', () => {
+    return request(app)
+    .post('/api/v1/foods')
+    .send({
+      calories: 6000
+    })
+    .then(response => {
+      expect(response.statusCode).toBe(400)
+      expect((response.body.error)).toBe('name and calories fields are required.')
+    })
+  })
 })
