@@ -40,6 +40,23 @@ const show = (request, response) => {
   })
 }
 
+const create = (request, response) => {
+  return Food.create({
+    name: request.body.name,
+    calories: request.body.calories
+  })
+  .then(food => {
+    response.setHeader('Content-type', 'application/json')
+    response.status(200).send(JSON.stringify( food, ['id', 'name', 'calories'] ))
+  })
+  .catch(error => {
+    response.setHeader('Content-type', 'application/json')
+    response.status(400).send(JSON.stringify({
+      error: 'name and calories fields are required.'
+    }))
+  })
+}
+
 const update = (request, response) => {
   return Food.findOne({
     attributes: { 
@@ -103,6 +120,7 @@ const deleteFood = (request, response) => {
 }
 
 
+
 module.exports = {
-  index, show, update, deleteFood
+  index, show, update, deleteFood, create
 }
