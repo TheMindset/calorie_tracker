@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
   Food.associate = function(models) {
-    Food.belogsToMany(models.Meal, {
+    Food.belongsToMany(models.Meal, {
       through: 'MealFoods',
       foreignyKey: 'FoodId',
       otherKey: 'MealId',
