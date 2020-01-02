@@ -1,4 +1,4 @@
-const toTitleFoodName = require('../tests/helpers/toTitleFoodName')
+const toTitleName = require('../tests/helpers/toTitleName')
 
 'use strict';
 module.exports = (sequelize, DataTypes) => {
@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     hooks: {
       beforeCreate: (food) => {
-        food.name = toTitleFoodName(food.name)
+        food.name = toTitleName(food.name)
       }
     }
   });
