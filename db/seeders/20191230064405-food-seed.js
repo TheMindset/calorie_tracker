@@ -5,58 +5,26 @@ module.exports = {
     return queryInterface.bulkInsert('Food',
       [
         {
-          id: 1,
-          name: 'Banana',
-          calories: 120,
+          name: "Banana",
+          calories: 150,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          id: 2,
-          name: 'Orange',
-          calories: 80,
+          name: "Apple",
+          calories: 100,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          id: 3,
-          name: 'Strawberry',
-          calories: 20,
+          name: "Kiwi",
+          calories: 700,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          id: 4,
-          name: 'Chicken',
-          calories: 200,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        },
-        {
-          id: 5,
-          name: 'Salad',
-          calories: 260,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        },
-        {
-          id: 6,
-          name: 'Mimosa',
-          calories: 280,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        },
-        {
-          id: 7,
-          name: 'Kabab',
-          calories: 400,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        },
-        {
-          id: 8,
-          name: 'Hamburger',
-          calories: 1200,
+          name: "Strawberry",
+          calories: 40,
           createdAt: new Date(),
           updatedAt: new Date()
         }

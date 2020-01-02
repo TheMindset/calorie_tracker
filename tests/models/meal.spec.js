@@ -1,8 +1,7 @@
 const app = require('../../app')
 
-
-const Meal = require('../../models').Meal
 const Food = require('../../models').Food
+const Meal = require('../../models').Meal
 
 const cleanup = require('../helpers/testCleanupDatabase')
 
