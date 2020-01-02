@@ -10,7 +10,7 @@ describe('Food Model', () => {
     cleanup()
   })
 
-  test('it has attributes', () => {
+  test('should has attributes', () => {
     return Food.create({
       name: 'Bananas',
       calories: 120,
@@ -21,7 +21,7 @@ describe('Food Model', () => {
     })
   })
 
-  test('it uppercase the first word of name attribute', () => {
+  test('should uppercase the first word of name attribute', () => {
     return Food.create({
       name: 'kiwi',
       calories: 700,
@@ -31,7 +31,7 @@ describe('Food Model', () => {
     })
   })
   
-  it('it cannot a food with a name already in database', () => {
+  it('should cannot create a food with a name already in database', () => {
     return Food.create({
       name: 'kiwi',
       calories: 700,
@@ -47,7 +47,7 @@ describe('Food Model', () => {
     })
   })
 
-  test('it associated with meals', () => {
+  test('should associated with meals', () => {
     return Food.create({
       name: 'kiwi',
       calories: 700,
