@@ -10,7 +10,7 @@ describe('meals api endpoint', () => {
   test('should request all meals', () => {
     return Meal.create({
       name: 'Breakfeast',
-      food: [
+      foods: [
         {
           name: "Banana",
           calories: 150,
@@ -21,12 +21,12 @@ describe('meals api endpoint', () => {
         }
       ]
     }, {  
-      includes: 'foods'  
+      include: 'foods'  
     })
     .then(meal => {
       return Meal.create({
         name: 'Dinner',
-        food: [
+        foods: [
           {
             name: "Kebab",
             calories: 6000,
@@ -37,7 +37,7 @@ describe('meals api endpoint', () => {
           }
         ]
       }, {  
-        includes: 'foods'  
+        include: 'foods'  
       })
     })
     .then(meal => {
