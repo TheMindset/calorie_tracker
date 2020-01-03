@@ -2,12 +2,12 @@ const app = require('../../../app')
 const request = require('supertest')
 
 const Food = require('../../../models').Food
-const cleanup = require('../../helpers/testCleanupDatabase')
+const cleanup = require('../../helpers/test_clear_database')
 
 describe('Food api endpoint', () => {
 
-  beforeEach(() => {
-    cleanup()
+  beforeEach( async () => {
+    await cleanup()
   })
 
   test('should returns all foods', () => {
