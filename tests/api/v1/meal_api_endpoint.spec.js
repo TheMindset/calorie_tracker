@@ -77,7 +77,7 @@ describe('meals api endpoint', () => {
     })
   })
 
-  test('should associate food & meal with food_id & meal_id', () => {
+  test('should add food in a meal', () => {
     return Meal.create({
       name: 'Dinner 2'
     })
@@ -100,7 +100,7 @@ describe('meals api endpoint', () => {
     })
   })
 
-  test('should send a 404 error when the meal is not found', () => {
+  test('should send a 404 error when the meal where add food is not found', () => {
     return Food.create({
       name: 'Harissa',
       calories: 120
@@ -114,4 +114,65 @@ describe('meals api endpoint', () => {
       })
     })
   })
+
+  test('should delete food within a meal', () => {
+    return Meal.create({
+      name: 'Dinner',
+      foods: [
+        {
+          name: "Kebab",
+          calories: 6000,
+        },
+        {
+          name: "Apple",
+          calories: 100,
+        },
+        {
+          id: 14,
+          name: "Juice 2",
+          calories: 139,
+        }
+      ]
+    }, {  
+      include: 'foods'  
+    })
+    .then(meal => {
+      return request(app)
+      .delete(`/api/v1/${meal.id}/foods/14`)
+      .then(response => {
+        expect(response.statusCode).toBe(204)
+      })
+    })
+  })
+
+  test('should send a 404 error when the food to remove within the meal is not found ', () => {
+    return Meal.create({
+      name: 'Dinner',
+      foods: [
+        {
+          name: "Kebab",
+          calories: 6000,
+        },
+        {
+          name: "Apple",
+          calories: 100,
+        },
+        {
+          id: 14,
+          name: "Juice 2",
+          calories: 139,
+        }
+      ]
+    }, {  
+      include: 'foods'  
+    })
+    .then(meal => {
+      return request(app)
+      .delete(`/api/v1/${meal.id}/foods/99`)
+      .then(response => {
+        expect(response.status).toBe(404)
+        expect(response.body.error).toBe('Not Found')
+      })
+    })
+  })  
 })
