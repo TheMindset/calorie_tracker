@@ -1,5 +1,6 @@
 const Meal = require('../models').Meal
 const Food = require('../models').Food
+const MealFood = require('../models').MealFood
 
 const index = (request, response) => {
   return Meal.findAll({
@@ -51,6 +52,31 @@ const create = (request, response) => {
   })
 }
 
+const foodDelete = (request, response) => {
+  MealFood.findOne({
+    where: {
+      FoodId: request.params.food_id,
+      MealId: request.params.id
+    }
+  })
+  .then(mealFood => {
+    if (mealFood) {
+      return mealFood.destroy()
+      .then(destroyedMealFood => {
+        response.setHeader('Conent-Type', 'application/json')
+        response.status(204).send(JSON.stringify(destroyedMealFood))
+      })
+    } else {
+      response.setHeader('Content-Type', 'application/json')
+      response.status(404).send({ error: 'Not found' })
+    }
+  })
+  .catch(error => {
+    response.setHeader('Content-type', 'application/json')
+    response.status(500).send({ error })
+  })
+}
+
 module.exports = {
-  index, create,
+  index, create, foodDelete
 }
