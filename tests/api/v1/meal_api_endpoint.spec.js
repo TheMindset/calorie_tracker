@@ -7,6 +7,11 @@ const Food = require('../../../models').Food
 const cleanup = require('../../helpers/testCleanupDatabase')
 
 describe('meals api endpoint', () => {
+
+  beforeEach(() => {
+    cleanup()
+  })
+
   test('should request all meals', () => {
     return Meal.create({
       name: 'Breakfeast',
@@ -18,12 +23,16 @@ describe('meals api endpoint', () => {
         {
           name: "Kiwi",
           calories: 700,
+        },
+        {
+          name: "Juice 1",
+          calories: 200,
         }
       ]
     }, {  
       include: 'foods'  
     })
-    .then(meal => {
+    .then(() => {
       return Meal.create({
         name: 'Dinner',
         foods: [
@@ -34,26 +43,30 @@ describe('meals api endpoint', () => {
           {
             name: "Apple",
             calories: 100,
+          },
+          {
+            name: "Juice 2",
+            calories: 139,
           }
         ]
       }, {  
         include: 'foods'  
       })
     })
-    .then(meal => {
+    .then(() => {
       request(app)
       .get('/api/v1/meals')
       .then(response => {
         expect(response.statusCode).toBe(200)
 
-        expect(response.boby.length).toBe(2)
+        expect(response.body.length).toBe(2)
         expect(Object.keys(response.body[0])).toContain('id')
         expect(Object.keys(response.body[0])).toContain('name')
 
         expect(Object.keys(response.body[0])).not.toContain('createdAt')
         expect(Object.keys(response.body[0])).not.toContain('updatedAt')
 
-        expect(response.boby[0].foods.length).toBe(3)
+        expect(response.body[0].foods.length).toBe(3)
         expect(Object.keys(response.body[0].foods[0])).toContain('id')
         expect(Object.keys(response.body[0].foods[0])).toContain('name')
         expect(Object.keys(response.body[0].foods[0])).toContain('calories')
@@ -66,11 +79,11 @@ describe('meals api endpoint', () => {
 
   test('should associate food & meal with food_id & meal_id', () => {
     return Meal.create({
-      name: 'Dinner'
+      name: 'Dinner 2'
     })
     .then(meal => {
       return Food.create({
-        name: 'Salad',
+        name: 'Salad 1',
         calories: 260
       })
       .then(food => {
@@ -80,7 +93,8 @@ describe('meals api endpoint', () => {
           expect(response.statusCode).toBe(201)
 
           expect(Object.keys(response.body)).toContain('message')
-          expect(Object.values(response.body)).toContain(`Successfuly added ${food.name} to ${meal.name}`)
+          
+          expect(response.body.message).toBe(`Successfuly added ${food.name} to ${meal.name}`)
         })
       })
     })
