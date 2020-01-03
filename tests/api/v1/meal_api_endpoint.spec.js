@@ -4,12 +4,12 @@ const request = require('supertest')
 const Meal = require('../../../models').Meal
 const Food = require('../../../models').Food
 
-const cleanup = require('../../helpers/testCleanupDatabase')
+const cleanup = require('../../helpers/test_clear_database')
 
 describe('meals api endpoint', () => {
 
-  beforeEach(() => {
-    cleanup()
+  beforeEach( async () => {
+    await cleanup()
   })
 
   test('should request all meals', () => {
@@ -138,7 +138,7 @@ describe('meals api endpoint', () => {
     })
     .then(meal => {
       return request(app)
-      .delete(`/api/v1/${meal.id}/foods/14`)
+      .delete(`/api/v1/meals/${meal.id}/foods/14`)
       .then(response => {
         expect(response.statusCode).toBe(204)
       })
@@ -147,19 +147,11 @@ describe('meals api endpoint', () => {
 
   test('should send a 404 error when the food to remove within the meal is not found ', () => {
     return Meal.create({
-      name: 'Dinner',
+      name: 'Snack',
       foods: [
         {
-          name: "Kebab",
-          calories: 6000,
-        },
-        {
-          name: "Apple",
-          calories: 100,
-        },
-        {
           id: 14,
-          name: "Juice 2",
+          name: "Juice 3",
           calories: 139,
         }
       ]
@@ -168,10 +160,10 @@ describe('meals api endpoint', () => {
     })
     .then(meal => {
       return request(app)
-      .delete(`/api/v1/${meal.id}/foods/99`)
+      .delete(`/api/v1/meals/${meal.id}/foods/99`)
       .then(response => {
         expect(response.status).toBe(404)
-        expect(response.body.error).toBe('Not Found')
+        expect(response.body.error).toBe('Not found')
       })
     })
   })  
