@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "dev-start": "nodemon ./bin/www",
     "test": "jest --config ./jest.config.js --forceExit --coverage ",
-    "oneTest": "jest --config ./jest.config.js --forceExit --coverage -t"
+    "oneTest": "jest --forceExit --coverage -t"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

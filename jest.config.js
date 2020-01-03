@@ -1,5 +1,5 @@
 module.exports = {
   testEnvironment: "node",
-  globalSetup: "./tests/helpers/testGlobalSetup.js",
-  maxWorkers: 1,
+  globalSetup: "./tests/helpers/test_global_setup.js",
+  maxWorkers: 1
 }
