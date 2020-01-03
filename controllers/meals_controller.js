@@ -7,11 +7,11 @@ const index = (request, response) => {
     include: 'foods'
   })
   .then(meals => {
-    response.setHeader('Content-type', 'application/json')
+    response.setHeader('Content-Type', 'application/json')
     response.status(200).send(JSON.stringify(meals, ['id', 'name', 'foods', 'id', 'name', 'calories']))
   })
   .catch(error => {
-    response.setHeader('Content-type', 'application/json')
+    response.setHeader('Content-Type', 'application/json')
     response.status(500).send({ error })
   })
 }
@@ -33,21 +33,21 @@ const create = (request, response) => {
         if (food) {
           return meal.addFood(food)
           .then(() => {
-            response.setHeader('Content-type', 'application/json')
+            response.setHeader('Content-Type', 'application/json')
             response.status(201).send(JSON.stringify({message: `Successfuly added ${food.name} to ${meal.name}`}))
           })
         } else {
-          response.setHeader('Content-type', 'application/json')
-          response.status(4004).send({ error: 'Food not found' })      
+          response.setHeader('Content-Type', 'application/json')
+          response.status(404).send({ error: 'Food not found' })      
         }
       })
     } else {
-      response.setHeader('Content-type', 'application/json')
+      response.setHeader('Content-Type', 'application/json')
       response.status(404).send({ error: 'Meal not found' })
     }
   })
   .catch(error => {
-    response.setHeader('Content-type', 'application/json')
+    response.setHeader('Content-Type', 'application/json')
     response.status(500).send({ error })
   })
 }
@@ -72,11 +72,33 @@ const foodDelete = (request, response) => {
     }
   })
   .catch(error => {
-    response.setHeader('Content-type', 'application/json')
+    response.setHeader('Content-Type', 'application/json')
+    response.status(500).send({ error })
+  })
+}
+
+const findAllFoods = (request, response) => {
+  return Meal.findOne({
+    where: {
+      id: request.params.id
+    },
+    include: 'foods'
+  })
+  .then(meal => {
+    if (meal) {
+      response.setHeader('Content-Type', 'application/json')
+      response.status(200).send(JSON.stringify(meal, ['id', 'name', 'foods', 'id', 'name', 'calories']))
+    } else {
+      response.setHeader('Content-Type', 'application/json')
+      response.status(404).send({ error: 'Meal not found' })      
+    }
+  })
+  .catch(error => {
+    response.setHeader('Content-Type', 'application/json')
     response.status(500).send({ error })
   })
 }
 
 module.exports = {
-  index, create, foodDelete
+  index, create, foodDelete, findAllFoods
 }
