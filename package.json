@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev-start": "nodemon ./bin/www",
-    "test": "jest --config ./jest.config.js --forceExit --coverage ",
+    "test": "jest --forceExit --coverage ",
     "oneTest": "jest --forceExit --coverage -t"
   },
   "dependencies": {
