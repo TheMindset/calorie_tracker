@@ -1,4 +1,4 @@
-const toTitleName = require('../tests/helpers/toTitleName')
+const toTitleName = require('../helpers/title_name')
 
 'use strict';
 module.exports = (sequelize, DataTypes) => {
