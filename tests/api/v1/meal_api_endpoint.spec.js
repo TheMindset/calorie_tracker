@@ -167,4 +167,56 @@ describe('meals api endpoint', () => {
       })
     })
   })  
+
+  test('should return all food in a meal', () => {
+    return Meal.create({
+      name: 'Lunch',
+      foods: [
+        {
+          name: "Kebab",
+          calories: 6000,
+        },
+        {
+          name: "Apple",
+          calories: 100,
+        },
+        {
+          id: 14,
+          name: "Juice 2",
+          calories: 139,
+        }
+      ]
+    }, {  
+      include: 'foods'  
+    })
+    .then(meal => {
+      return request(app)
+      .get(`/api/v1/meals/${meal.id}/foods`)
+      .then(response => {
+        expect(response.status).toBe(200)
+
+        expect(Object.keys(response.body)).toContain('id')
+        expect(Object.keys(response.body)).toContain('name')
+
+        expect(Object.keys(response.body)).not.toContain('createdAt')
+        expect(Object.keys(response.body)).not.toContain('updatedAt')
+
+        expect(Object.keys(response.body.foods[0])).toContain('id')
+        expect(Object.keys(response.body.foods[0])).toContain('name')
+        expect(Object.keys(response.body.foods[0])).toContain('calories')
+
+        expect(Object.keys(response.body.foods[0])).not.toContain('createdAt')
+        expect(Object.keys(response.body.foods[0])).not.toContain('updatedAt')
+      })
+    })
+  })
+
+  test('should return 404 error when no meal is found to fetch foods for', () => {
+    return request(app)
+    .get('/api/v1/meals/22/foods')
+    .then(response => {
+      expect(response.statusCode).toBe(404)
+      expect(response.body.error).toBe('Meal not found')
+    })
+  })
 })
