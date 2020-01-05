@@ -11,19 +11,18 @@ describe('average calories count api endpoint', () => {
 
   test('should return the total average colories by food type' , () => {
     return request(app)
-    .get('/api/v1/total_average_calories?q=Banana')
+    .get('/api/v1/recipes/total_average_calories?q=Banana')
     .then(response => {
-      console.log(response.statusCode)
       expect(response.statusCode).toBe(200)
 
-      expect(Object.keys(response.body.data.recipeSearch[0])).toContain('foodType')
-      expect(Object.keys(response.body.data.recipeSearch[0])).toContain('average')
+      expect(Object.keys(response.body.data.averageCalories[0])).toContain('foodType')
+      expect(Object.keys(response.body.data.averageCalories[0])).toContain('average')
     })
   })
 
   test('should return 404 error when the food type is not found', () => {
     return request(app)
-    .get('/api/v1/total_average_calories?q=pork')
+    .get('/api/v1/recipes/total_average_calories?q=pork')
     .then(response => {
       expect(response.statusCode).toBe(404)
 
