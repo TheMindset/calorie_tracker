@@ -1,4 +1,3 @@
-const express = require('express')
 const request = require('supertest')
 
 const app = require('../../../../app')
@@ -35,7 +34,5 @@ describe('foods search api endpoint', () => {
 
       expect(response.body.error).toBe('No recipes found for food type')
     })
-  })
-
-  
+  })  
 })

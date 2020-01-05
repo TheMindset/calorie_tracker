@@ -1,4 +1,3 @@
-const express = require('express')
 const request = require('supertest')
 
 const app = require('../../../../app')
@@ -29,6 +28,4 @@ describe('average calories count api endpoint', () => {
       expect(response.body.error).toBe('No food found for food type')
     })
   })
-
-  
 })

@@ -64,7 +64,7 @@ describe('Food api endpoint', () => {
       updatedAt: new Date()
     }
     ])
-    .then(food => {
+    .then(() => {
       return request(app)
       .get('/api/v1/foods/2')
       .then(response => {
@@ -139,7 +139,7 @@ describe('Food api endpoint', () => {
       createdAt: new Date(),
       updatedAt: new Date()
     })
-    .then(food => {
+    .then(() => {
       return request(app)
       .patch('/api/v1/foods/40')
       .send({
@@ -173,14 +173,14 @@ describe('Food api endpoint', () => {
   })
 
   test('returns 404 error when user want delete food with invalid id', () => {
-    return Food.bulkCreate({
+    return Food.create({
       id: 1,
       name: "Kiwi",
       calories: 700,
       createdAt: new Date(),
       updatedAt: new Date()
     })
-    .then(food => {
+    .then(() => {
       return request(app)
       .delete('/api/v1/foods/40')
       .then(response => {
@@ -206,7 +206,6 @@ describe('Food api endpoint', () => {
 
       expect(Object.keys(response.body)).not.toContain('createdAt')
       expect(Object.keys(response.body)).not.toContain('updatedAt')
-
     })
   })
 

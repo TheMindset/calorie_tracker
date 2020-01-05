@@ -23,7 +23,6 @@ const searchFoods = (request, response) => {
 const totalAverageCalorie = (request, response) => {
   return fetch(`https://calorie-tracker-self-ms.herokuapp.com/graphql?query={averageCalories(foodType:"${request.query.q}"){foodType,average}}`)
   .then(recipeData => {
-    console.log(recipeData)
     return recipeData.json()
   })
   .then(avarage => {
@@ -100,7 +99,6 @@ const sortedIngredients = (request, response) => {
     response.status(500).send(JSON.stringify({ error }))
   })
 }
-
 
 module.exports = {
   searchFoods, 

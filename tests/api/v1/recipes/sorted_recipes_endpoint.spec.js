@@ -24,7 +24,6 @@ describe('sorted recipes api endpoint', () => {
       expect(Object.keys(response.body.data.sortIngredients[0])).toContain('numberOfIngredients')
       expect(Object.keys(response.body.data.sortIngredients[0])).toContain('preparationTime')
       expect(response.body.data.sortIngredients[0].numberOfIngredients).toBe(2)
-
     })
   })
 

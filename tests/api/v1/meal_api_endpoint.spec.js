@@ -12,8 +12,8 @@ describe('meals api endpoint', () => {
     await cleanup()
   })
 
-  test('should request all meals', () => {
-    return Meal.create({
+  test('should return all meals', () => {
+    return Meal.bulkCreate({
       name: 'Breakfeast',
       foods: [
         {
@@ -33,7 +33,7 @@ describe('meals api endpoint', () => {
       include: 'foods'  
     })
     .then(() => {
-      return Meal.create({
+      return Meal.bulkCreate({
         name: 'Dinner',
         foods: [
           {
