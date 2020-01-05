@@ -1,4 +1,4 @@
-const toTitleName = require('../helpers/title_name')
+const toTitleCase = require('../helpers/title_case')
 
 'use strict';
 module.exports = (sequelize, DataTypes) => {
@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     hooks: {
       beforeCreate: (food) => {
-        food.name = toTitleName(food.name)
+        food.name = toTitleCase(food.name)
       }
     }
   });
