@@ -21,6 +21,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/v1/foods', foods);
 app.use('/api/v1/meals', meals)
-app.use('/api/v1/search_foods', recipes)
+app.use('/api/v1/recipes', recipes)
 
 module.exports = app;
