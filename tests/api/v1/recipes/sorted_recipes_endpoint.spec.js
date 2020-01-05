@@ -4,7 +4,7 @@ const request = require('supertest')
 const app = require('../../../../app')
 const cleanup = require('../../../helpers/test_clear_database')
 
-describe('num of ingredients api endpoint', () => {
+describe('sorted recipes api endpoint', () => {
   beforeEach(async() =>{
     await cleanup()
   })
@@ -52,7 +52,7 @@ describe('num of ingredients api endpoint', () => {
       expect(Object.keys(response.body.data.sortPrepTime[0])).toContain('totalCalories')
       expect(Object.keys(response.body.data.sortPrepTime[0])).toContain('numberOfIngredients')
       expect(Object.keys(response.body.data.sortPrepTime[0])).toContain('preparationTime')
-      expect(response.body.data.sortIngredients[0].preparationTime).toBe(1)
+      expect(response.body.data.sortPrepTime[0].preparationTime).toBe(1)
     })
   })
 
