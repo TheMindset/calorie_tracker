@@ -11,11 +11,12 @@ describe('foods search api endpoint', () => {
 
   test('should return all recipes by foodType', () => {
     return request(app)
-    .get('/api/v1/foods_search?q=chicken')
+    .get('/api/v1/search_foods?q=Chicken')
     .then(response => {
+      console.log(response.statusCode)
       expect(response.statusCode).toBe(200)
 
-      expect(response.body.data.recipeSearch.leangth).toBe(10)
+      expect(response.body.data.recipeSearch.length).toBe(10)
       expect(Object.keys(response.body.data.recipeSearch[0])).toContain('id')
       expect(Object.keys(response.body.data.recipeSearch[0])).toContain('name')
       expect(Object.keys(response.body.data.recipeSearch[0])).toContain('foodType')
@@ -28,7 +29,7 @@ describe('foods search api endpoint', () => {
 
   test('should return 404 error when no recipes of food type is found', () => {
     return request(app)
-    .get('/api/v1/foods_search?q=chicken')
+    .get('/api/v1/search_foods?q=chicken')
     .then(response => {
       expect(response.statusCode).toBe(404)
 
