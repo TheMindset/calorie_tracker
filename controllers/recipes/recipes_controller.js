@@ -79,12 +79,34 @@ const sortedPrepTime = (request, response) => {
     response.setHeader('Content-Type', 'application/json')
     response.status(500).send(JSON.stringify({ error }))
   })
-
 }
+
+const sortedIngredients = (request, response) => {
+  return fetch(`https://calorie-tracker-self-ms.herokuapp.com/graphql?query={sortIngredients(foodType:"${request.query.q}"){id,name,foodType,recipeLink,totalCalories,numberOfIngredients,preparationTime}}`)
+  .then(recipeData => {
+    return recipeData.json()
+  })
+  .then(parsedRecipeData => {
+    if (parsedRecipeData.data.sortIngredients.length === 0) {
+      response.setHeader('Content-Type', 'application/json')
+      response.status(404).send(JSON.stringify({ error: 'No recipes found for the food type' }))
+    } else {
+      response.setHeader('Content-Type', 'application/json')
+      response.status(200).send(JSON.stringify(parsedRecipeData))
+    }
+  })
+  .catch(error => {
+    response.setHeader('Content-Type', 'application/json')
+    response.status(500).send(JSON.stringify({ error }))
+  })
+}
+
 
 module.exports = {
   searchFoods, 
   totalAverageCalorie, 
   numberOfIngredients,
-  sortedPrepTime
+  sortedPrepTime,
+  sortedIngredients
 }
+
