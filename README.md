@@ -4,6 +4,12 @@
 
 Welcome to the Calorie Tracker. This project is completed during the Module 4 of [Turing School of Software & Design](https://backend.turing.io/).
 
+The deployed site's endpoints can be consumed at:
+
+https://calorie-tracker-self.herokuapp.com/
+
+The accompanying micro-service can be viewed [here](https://calorie-tracker-self-ms.herokuapp.com/).
+
 ### Technique Stack
 
 * Node.js / Express
